@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int len = nums.size();
+        sort(nums.begin(), nums.end());
+        int minsum = INT_MAX;
+        int ans=INT_MAX;
+        for(int i=0;i<len-2;i++){
+            int j=i+1;
+            int k=len-1;
+            while(j<k){
+                int cursum = nums[i]+nums[j]+nums[k];
+                if(cursum==target){
+                    return cursum;
+                }
+                else if(cursum>target){
+                    if(abs(cursum-target)<=minsum){
+                        minsum = abs(cursum-target);
+                        ans = cursum;
+                    }
+                    k--;
+                }else{
+                    if(abs(target-cursum)<=minsum){
+                        minsum = abs(target-cursum);
+                        ans = cursum;
+                    }
+                    j++;
+                }
+            }
+        }
+        cout<<minsum;
+        return ans;
+    }
+};
