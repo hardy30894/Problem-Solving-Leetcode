@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<int> search(vector<int>& nums, int st, int end, int target){
+        vector<int> v;
+        v.push_back(-1);
+        v.push_back(-1);
+        if(st>end){
+            return v;
+        }
+        int mid = st+(mid-st+1)/2;
+        if(nums[mid]==target){
+            v[0]=mid;
+            v[1]=mid;
+            if(mid-1>=st && nums[mid-1]==nums[mid]){
+                vector<int> temp = search(nums, st, mid-1, target);
+                if(temp[0]==-1){
+                    v[0] = v[0];   
+                }else if(v[0]==-1){
+                    v[0] = temp[0];
+                }else{
+                    v[0] = min(v[0], temp[0]);
+                }
+                v[1] = max(v[1], temp[1]);
+            }
+            if(mid+1<=end && nums[mid+1]==nums[mid]){
+                vector<int> temp = search(nums, mid+1, end, target);
+                if(temp[0]==-1){
+                    v[0] = v[0];   
+                }else if(v[0]==-1){
+                    v[0] = temp[0];
+                }else{
+                    v[0] = min(v[0], temp[0]);
+                }
+                v[1] = max(v[1], temp[1]);
+            }
+        }
+        else if(nums[mid]>target){
+            vector<int> temp = search(nums, st, mid-1, target);
+            if(temp[0]==-1){
+                    v[0] = v[0];   
+                }else if(v[0]==-1){
+                    v[0] = temp[0];
+                }else{
+                    v[0] = min(v[0], temp[0]);
+                }
+            v[1] = max(v[1], temp[1]);
+        }else{
+            vector<int> temp = search(nums, mid+1, end, target);
+            if(temp[0]==-1){
+                    v[0] = v[0];   
+                }else if(v[0]==-1){
+                    v[0] = temp[0];
+                }else{
+                    v[0] = min(v[0], temp[0]);
+                }
+            v[1] = max(v[1], temp[1]);
+        }
+        return v;
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int len = nums.size();
+        return search(nums, 0 ,len-1, target);
+    }
+};
