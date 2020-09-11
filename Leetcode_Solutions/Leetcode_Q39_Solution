@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void combinations(vector<int>& candidates, int st, int len, int target, vector<int> v, vector<vector<int>>& ans){
+        if(target == 0){
+            ans.push_back(v);
+            return;
+        }
+        if(st>=len && target!=0){
+            return;
+        }
+        if(target<0){
+            return;
+        }
+        for(int i=st;i<len;i++){
+            v.push_back(candidates[i]);
+            combinations(candidates, i, len, target-candidates[i], v, ans);
+            v.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        int len = candidates.size();
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> ans;
+        vector<int> v;
+        combinations(candidates, 0, len, target, v, ans);
+        return ans;
+    }
+};
