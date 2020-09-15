@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool jump(vector<int>& nums, int st, int len, vector<int>& res){
+        if(st>=len){
+            return false;
+        }
+        if(st==len-1){
+            res[st]=true;
+            return true;
+        }
+        int x = nums[st];
+        bool ans = false;
+        for(int i=1;i<=x;i++){
+            if(res[st+i]==-1){
+                bool temp=jump(nums, st+i, len, res);
+                res[st+i]=temp;
+                ans = ans||temp;
+            }
+        }
+        return ans;
+    }
+    bool canJump(vector<int>& nums) {
+        int len = nums.size();
+        vector<int> res(100000,-1);
+        return jump(nums, 0, len, res);
+    }
+};
