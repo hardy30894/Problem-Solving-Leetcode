@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void sets(vector<int>& nums, int st, int len, vector<vector<int>>& output, vector<int> ans){
+        if(st==len){
+            output.push_back(ans);
+            return;
+        }
+        ans.push_back(nums[st]);
+        sets(nums, st+1, len, output, ans);
+        ans.pop_back();
+        sets(nums,st+1, len, output, ans);
+    }
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int len = nums.size();
+        vector<vector<int>> output;
+        vector<int> ans;
+        sets(nums, 0, len, output, ans);
+        return output;
+    }
+};
