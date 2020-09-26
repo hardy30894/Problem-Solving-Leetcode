@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool search(vector<vector<char>>& board, string word, int i, int j, int m, int n, int wlen, int x){
+        if(x==wlen){
+            return true;
+        }
+        if(i<0 || i==m || j<0 || j==n && (x!=wlen)){
+            return false;
+        }
+        if(board[i][j]!=word[x]){
+            return false;
+        }
+        char c = board[i][j];
+        board[i][j] = '0';
+        bool ans=false;
+        ans = ans || search(board, word, i+1, j, m, n, wlen, x+1);
+        ans = ans || search(board, word, i-1, j, m, n, wlen, x+1);
+        ans = ans || search(board, word, i, j+1, m, n, wlen, x+1);
+        ans = ans || search(board, word, i, j-1, m, n, wlen, x+1);
+        board[i][j]=c;
+        return ans;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        int m = board.size();
+        int n = board[0].size();
+        int wlen = word.length();
+        bool ans=false;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(board[i][j]==word[0]){
+                    ans = ans || search(board, word, i, j, m, n, wlen, 0);
+                }
+            }
+        }
+        return ans;
+    }
+};
