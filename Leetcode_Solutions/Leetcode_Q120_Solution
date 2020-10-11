@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int m = triangle.size();
+        if(m==0) return -1;
+        int y = triangle[0].size();
+        if(y==0) return -1;
+        vector<int> ans;
+        for(int i=0;i<m;i++){
+            int n = triangle[i].size();
+            cout<<endl;
+            cout<<n<<endl;
+            for(int j=0;j<n;j++){
+                cout<<j<<" ";
+                if(i==0 && j==0){
+                    continue;
+                }
+                int m1 = INT_MAX;
+                if(i>0 && triangle[i-1].size()>j){
+                    m1 = triangle[i-1][j];
+                }
+                int m2 = INT_MAX;
+                if(i>0 && j>0 && triangle[i-1].size()>=j){
+                    m2 = triangle[i-1][j-1];
+                }
+                triangle[i][j]=(min(m1,m2)>=INT_MAX)?INT_MAX:(triangle[i][j]+min(m1,m2));
+                cout<<"trai = "<<triangle[i][j]<<endl;
+            }
+        }
+        int minpath = INT_MAX;
+        for(int j=0;j<triangle[m-1].size();j++){
+            minpath = min(minpath, triangle[m-1][j]);
+        }
+        return minpath;
+    }
+};
