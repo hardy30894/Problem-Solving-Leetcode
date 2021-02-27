@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int l1 = a.length()-1;
+        int l2 = b.length()-1;
+        int carry=0;
+        string s="";
+        while(l1>=0 || l2>=0){
+            int sum = carry;
+            if(l1>=0){
+                sum+=a[l1--]-'0';
+            }
+            if(l2>=0){
+                sum+=b[l2--]-'0';
+            }
+            s=(sum%2==0?"0":"1")+s;
+            carry = sum/2;
+        }
+        if(carry>0){
+            s="1"+s;
+        }
+        return s;
+    }
+};
