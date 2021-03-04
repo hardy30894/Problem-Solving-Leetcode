@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        int rl = ransomNote.length();
+        int ml = magazine.length();
+        if(ml<rl) return false;
+        unordered_map<char, int> mmap;
+        int i=0;
+        while(i<ml){
+            mmap[magazine[i]]+=1;
+            i++;
+        }
+        int j=0;
+        while(j<rl){
+            if(mmap[ransomNote[j]]==0){
+                return false;
+            }else{
+                mmap[ransomNote[j++]]-=1;
+            }
+        }
+        return true;
+    }
+};
