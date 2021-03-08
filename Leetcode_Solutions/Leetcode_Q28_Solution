@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int hl = haystack.length();
+        int nl = needle.length();
+        if(nl==0) return 0;
+        needle = needle;
+        nl = needle.length();
+        int *lps = new int[nl]();
+        int i=1, j=0;
+        while(i<nl){
+            if(needle[i]==needle[j]){
+                j++;
+                lps[i]=j;
+                i++;
+            }
+            else{
+                if(j!=0){
+                    j=lps[j-1];
+                }else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+        i=0, j=0;
+        while(i<hl){
+            if(haystack[i]==needle[j]){
+                i++;
+                j++;
+            }
+            if(j==nl) return i-j;
+            if(i<hl && haystack[i]!=needle[j]){
+                if(j>0){
+                    j = lps[j-1];
+                }else{
+                    i++;
+                }
+            }
+        }
+        return -1;
+    }
+};
