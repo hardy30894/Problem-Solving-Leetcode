@@ -1,0 +1,10 @@
+class Solution {
+public:
+    bool repeatedSubstringPattern(string s) {
+        int len = s.length();
+        if(len==0) return false;
+        string news = (s+s).substr(1, 2*(len-1));
+        cout<<news;
+        return (news.find(s)!=string::npos);
+    }
+};
